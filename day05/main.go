@@ -13,11 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	_ = input
-
-	fmt.Println(getColumn("BFFFBBFRRR"))
-	fmt.Println(getColumn("FFFBBBFRRR"))
-	fmt.Println(getColumn("BBFFBBFRLL"))
+	partOne(input)
 }
 
 func getInput() ([]string, error) {
@@ -88,4 +84,24 @@ func getColumn(input string) int {
 	column = left
 
 	return column
+}
+
+func getSeatID(input string) int {
+	row := getRow(input)
+	column := getColumn(input)
+
+	return row * 8 + column
+}
+
+func partOne(input []string) {
+	max := 0
+	for _, value := range input {
+		seatID := getSeatID(value)
+
+		if (seatID > max) {
+			max = seatID
+		}
+	}
+
+	fmt.Printf("What is the highest seat ID on a boarding pass? %d", max)
 }
