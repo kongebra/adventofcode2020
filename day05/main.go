@@ -15,9 +15,9 @@ func main() {
 
 	_ = input
 
-	fmt.Println(getRow("BFFFBBFRRR"))
-	fmt.Println(getRow("FFFBBBFRRR"))
-	fmt.Println(getRow("BBFFBBFRLL"))
+	fmt.Println(getColumn("BFFFBBFRRR"))
+	fmt.Println(getColumn("FFFBBBFRRR"))
+	fmt.Println(getColumn("BBFFBBFRLL"))
 }
 
 func getInput() ([]string, error) {
@@ -56,7 +56,7 @@ func getRow(input string) int {
 		} else if (instruction == "B") {
 			front = (front + back + 1) / 2
 		} else {
-			fmt.Println("ERROR: Uknown instruction:", instruction)
+			fmt.Println("ERROR: Unknown instruction:", instruction)
 		}
 
 		// fmt.Printf("AFTER:\t\tinstruction: %s\t\tfront: %d\tback: %d\n\n", instruction, front, back)
@@ -65,4 +65,27 @@ func getRow(input string) int {
 	row = front
 
 	return row
+}
+
+func getColumn(input string) int {
+	columnSection := input[7:]
+	instructions := strings.Split(columnSection, "")
+
+	column := 0
+	left := 0
+	right := 7
+
+	for _, instruction := range instructions {
+		if (instruction == "R") {
+			left = (left + right + 1) / 2
+		} else if (instruction == "L") {
+			right = (left + right) / 2
+		} else {
+			fmt.Println("ERROR: Unknown instruction:", instruction)
+		}
+	}
+
+	column = left
+
+	return column
 }
