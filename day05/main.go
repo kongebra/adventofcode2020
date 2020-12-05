@@ -13,7 +13,8 @@ func main() {
 		panic(err)
 	}
 
-	partOne(input)
+	// partOne(input)
+	partTwo(input)
 }
 
 func getInput() ([]string, error) {
@@ -93,7 +94,7 @@ func getSeatID(input string) int {
 	return row * 8 + column
 }
 
-func partOne(input []string) {
+func partOne(input []string) int {
 	max := 0
 	for _, value := range input {
 		seatID := getSeatID(value)
@@ -104,4 +105,24 @@ func partOne(input []string) {
 	}
 
 	fmt.Printf("What is the highest seat ID on a boarding pass? %d", max)
+
+	return max
+}
+
+func partTwo(input []string) {
+	max := partOne(input)
+
+	seats := make([]bool, max + 1)
+
+	for _, value := range input {
+		seatID := getSeatID(value)
+
+		seats[seatID] = true
+	}
+
+	for index, value := range seats {
+		if value == false {
+			fmt.Println(index)
+		}
+	}
 }
