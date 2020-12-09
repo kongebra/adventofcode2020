@@ -113,3 +113,51 @@ func partOne(input []string) {
 
 	fmt.Println("Accumulator:", accumulator)
 }
+
+func partTwo(input []string) {
+	instructions := make([]instruction, 0)
+
+	for _, line := range input {
+		instruction := makeInstruction(line)
+		instructions = append(instructions, instruction)
+	}
+
+	set := make(map[int]bool)
+
+	instruction := 0
+	accumulator := 0
+	for {
+		if (instruction >= len(instructions)) {
+			break
+		}
+
+		// we have been here before!
+		if _, ok := set[instruction]; ok {
+			break
+		} else {
+			// set value
+			set[instruction] = true
+		}
+
+		line := instructions[instruction]
+		
+		switch (line.Operation) {
+		case opAcc:
+			accumulator += line.Argument
+			instruction++
+			break
+
+		case opJmp:
+			next := instructions[instruction + 1]
+
+			instruction += line.Argument
+			break
+
+		case opNop:
+			instruction++
+			break
+		}
+	}
+
+	fmt.Println("Accumulator:", accumulator)
+}
