@@ -1,4 +1,4 @@
-# Advent of Code 2020
+# Advent of Code 2020 🎅🎄🎁🤶
 
 This is my code for the Advent of Code 2020, written in Go as the choice of programming language.
 
